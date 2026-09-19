@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit Bônus UGC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+
+    --ink: #33101F;
+    --ink-soft: #7A4E5C;
+    --bg: #FBF1EC;
+    --surface: #FFFFFF;
+    --surface-alt: #F6E4DC;
+    --rose: #B23A5D;
+    --rose-deep: #7E2A46;
+    --rose-tint: #F4D9DF;
+    --gold: #A9812F;
+    --gold-soft: #EFDFB8;
+    --gold-deep: #7A5D1F;
+    --sage: #4F7856;
+    --sage-tint: #DCEBDD;
+    --line: #E8D2C6;
+    --shadow: 0 18px 40px -22px rgba(51,16,31,0.35);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --ink: #F7E9E9;
+      --ink-soft: #D3AEB9;
+      --bg: #24101A;
+      --surface: #331A26;
+      --surface-alt: #3C2130;
+      --rose: #E58AA6;
+      --rose-deep: #F1B4C6;
+      --rose-tint: #4A2734;
+      --gold: #E0BD73;
+      --gold-soft: #4A3B1E;
+      --gold-deep: #F3D998;
+      --sage: #90BB94;
+      --sage-tint: #22332A;
+      --line: #4A2A38;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --ink: #F7E9E9;
+    --ink-soft: #D3AEB9;
+    --bg: #24101A;
+    --surface: #331A26;
+    --surface-alt: #3C2130;
+    --rose: #E58AA6;
+    --rose-deep: #F1B4C6;
+    --rose-tint: #4A2734;
+    --gold: #E0BD73;
+    --gold-soft: #4A3B1E;
+    --gold-deep: #F3D998;
+    --sage: #90BB94;
+    --sage-tint: #22332A;
+    --line: #4A2A38;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Manrope", system-ui, sans-serif;
+    padding-inline: 20px;
+    padding-block: 28px 48px;
+  }
+  h1,h2,h3{font-family:"Fraunces", Georgia, serif; text-wrap:balance; margin:0;}
+  .wrap{max-width:980px; margin:0 auto;}
+
+  .kit-eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:.78rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--rose-deep); background:var(--rose-tint);
+    padding:6px 14px; border-radius:999px; margin-bottom:14px;
+  }
+  :root[data-theme="dark"] .kit-eyebrow, @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .kit-eyebrow{ color:var(--rose-deep); } }
+
+  header.top{margin-bottom:28px;}
+  header.top h1{font-size:clamp(1.7rem, 4vw, 2.35rem); font-weight:600; line-height:1.12; color:var(--ink);}
+  header.top p{margin:10px 0 0; color:var(--ink-soft); font-size:1rem; max-width:62ch; line-height:1.55;}
+
+  .tabs{
+    display:flex; gap:8px; margin:26px 0 22px; border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  .tab-btn{
+    appearance:none; border:none; background:none; cursor:pointer;
+    font-family:"Manrope"; font-weight:700; font-size:.95rem; color:var(--ink-soft);
+    padding:10px 4px 14px; position:relative; white-space:nowrap;
+    display:flex; align-items:center; gap:8px;
+  }
+  .tab-btn svg{width:18px;height:18px;flex:none;}
+  .tab-btn.active{color:var(--rose-deep);}
+  .tab-btn.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:3px;
+    background:var(--rose); border-radius:3px 3px 0 0;
+  }
+  .tab-btn:not(.active):hover{color:var(--ink);}
+
+  .panel{display:none;}
+  .panel.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion: reduce){ .panel.active{animation:none;} }
+
+  .grid-calc{display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; align-items:start;}
+  @media (max-width: 780px){ .grid-calc{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:22px; box-shadow:var(--shadow);
+  }
+  .card + .card{margin-top:16px;}
+  .card h2{font-size:1.05rem; font-weight:600; margin-bottom:4px;}
+  .card .card-sub{color:var(--ink-soft); font-size:.85rem; margin:0 0 16px;}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block; font-size:.82rem; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .field .hint{font-size:.76rem; color:var(--ink-soft); margin-top:5px; line-height:1.4;}
+  select, input[type="text"], input[type="number"], textarea{
+    width:100%; font-family:"Manrope"; font-size:.92rem; color:var(--ink);
+    background:var(--surface-alt); border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; appearance:none;
+  }
+  select{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%237A4E5C' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 12px center; padding-right:34px;
+  }
+  textarea{resize:vertical; min-height:64px; font-size:.88rem; line-height:1.5;}
+  input:focus, select:focus, textarea:focus, button:focus-visible{
+    outline:2px solid var(--rose); outline-offset:1px;
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:520px){ .row2{grid-template-columns:1fr;} }
+
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    border:1px solid var(--line); background:var(--surface-alt); color:var(--ink-soft);
+    border-radius:999px; padding:7px 13px; font-size:.82rem; font-weight:700; cursor:pointer;
+  }
+  .chip.active{background:var(--rose); border-color:var(--rose); color:#fff;}
+
+  /* ---- results ---- */
+  .result-card{
+    background:linear-gradient(165deg, var(--rose-deep), var(--rose));
+    color:#fff; border-radius:18px; padding:26px; box-shadow:var(--shadow);
+    position:sticky; top:20px;
+  }
+  .result-card .r-label{font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; opacity:.85;}
+  .result-card .r-range{
+    font-family:"Fraunces"; font-weight:600; font-size:clamp(1.8rem,4.4vw,2.4rem);
+    margin:8px 0 2px; line-height:1.05; font-variant-numeric: tabular-nums;
+  }
+  .result-card .r-sub{font-size:.85rem; opacity:.9; margin-bottom:18px;}
+  .result-card .r-ask{
+    background:rgba(255,255,255,.16); border-radius:12px; padding:12px 14px; margin-bottom:16px;
+  }
+  .result-card .r-ask b{font-family:"Fraunces"; font-size:1.15rem; font-variant-numeric: tabular-nums;}
+  .breakdown{list-style:none; margin:0; padding:0; font-size:.83rem;}
+  .breakdown li{
+    display:flex; justify-content:space-between; gap:10px;
+    padding:7px 0; border-top:1px solid rgba(255,255,255,.22);
+  }
+  .breakdown li:first-child{border-top:none;}
+  .tip{
+    margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,.22);
+    font-size:.83rem; line-height:1.5; display:flex; gap:8px;
+  }
+  .tip svg{flex:none; width:16px; height:16px; margin-top:2px;}
+
+  .note{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--gold-soft); border:1px solid var(--gold); border-radius:12px;
+    padding:12px 14px; font-size:.82rem; line-height:1.5; color:var(--gold-deep); margin-top:16px;
+  }
+  :root[data-theme="dark"] .note, @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .note{ color:var(--ink); } }
+  .note svg{flex:none; width:17px; height:17px; margin-top:1px;}
+
+  /* ---- contract tab ---- */
+  .grid-contract{display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:start;}
+  @media (max-width:900px){ .grid-contract{grid-template-columns:1fr;} }
+
+  .legal-banner{
+    display:flex; gap:12px; align-items:flex-start;
+    background:var(--rose-tint); border:1px solid var(--rose); border-radius:14px;
+    padding:14px 16px; margin-bottom:20px; color:var(--rose-deep); font-size:.86rem; line-height:1.55;
+  }
+  :root[data-theme="dark"] .legal-banner, @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .legal-banner{ color:var(--ink); } }
+  .legal-banner svg{flex:none; width:20px; height:20px; margin-top:1px;}
+  .legal-banner strong{display:block; margin-bottom:2px; color:var(--rose-deep);}
+
+  fieldset{border:none; padding:0; margin:0 0 18px;}
+  fieldset:last-child{margin-bottom:0;}
+  legend{font-family:"Fraunces"; font-weight:600; font-size:.95rem; color:var(--rose-deep); padding:0 0 10px;}
+
+  .doc-preview-wrap{position:sticky; top:20px;}
+  .doc-toolbar{display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;}
+  .btn{
+    appearance:none; border:none; cursor:pointer; font-family:"Manrope"; font-weight:700; font-size:.86rem;
+    border-radius:10px; padding:10px 16px; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn svg{width:16px;height:16px;}
+  .btn-primary{background:var(--rose); color:#fff;}
+  .btn-primary:hover{background:var(--rose-deep);}
+  .btn-ghost{background:var(--surface-alt); color:var(--ink); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--rose);}
+  .copy-flash{font-size:.8rem; color:var(--sage); font-weight:700; align-self:center; opacity:0; transition:opacity .2s;}
+  .copy-flash.show{opacity:1;}
+
+  #docPreview{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:26px; max-height:70vh; overflow-y:auto;
+    font-family:"Manrope"; font-size:.83rem; line-height:1.7; color:var(--ink);
+    white-space:pre-wrap;
+  }
+  #docPreview h3{font-size:.95rem; margin:18px 0 6px;}
+  #docPreview h3:first-child{margin-top:0;}
+
+  .hint{font-size:.76rem; color:var(--ink-soft); line-height:1.4;}
+
+  #roteiroPreview{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:22px; max-height:75vh; overflow-y:auto;
+  }
+  .roteiro-empty{
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;
+    color:var(--ink-soft); padding:30px 10px; font-size:.87rem; line-height:1.6;
+  }
+  .roteiro-empty svg{width:34px; height:34px; color:var(--rose); opacity:.7;}
+
+  .roteiro-error{
+    display:flex; gap:10px; align-items:flex-start; background:var(--rose-tint); color:var(--rose-deep);
+    border:1px solid var(--rose); border-radius:12px; padding:14px; font-size:.85rem; line-height:1.5;
+  }
+  :root[data-theme="dark"] .roteiro-error, @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .roteiro-error{ color:var(--ink); } }
+  .roteiro-error svg{flex:none; width:18px; height:18px; margin-top:1px;}
+
+  .roteiro-prompt-header{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--sage-tint); border-radius:12px; padding:12px 14px; margin-bottom:14px;
+    font-size:.83rem; line-height:1.55; color:var(--ink);
+  }
+  .roteiro-prompt-header svg{flex:none; width:18px; height:18px; margin-top:1px; color:var(--sage);}
+  .roteiro-prompt-header strong{display:block; margin-bottom:2px;}
+  .roteiro-prompt-box{
+    white-space:pre-wrap; font-family:"Manrope"; font-size:.85rem; line-height:1.65;
+    color:var(--ink); background:var(--surface-alt); border:1px solid var(--line); border-radius:12px;
+    padding:16px;
+  }
+
+  footer.kit-footer{
+    margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+    color:var(--ink-soft); font-size:.8rem; text-align:center;
+  }
+  .signature{font-family:"Caveat"; font-size:1.3rem; color:var(--rose-deep);}
+
+  @media print{
+    body *{visibility:hidden;}
+    #docPreview, #docPreview *, #roteiroPreview, #roteiroPreview *{visibility:visible;}
+    #docPreview, #roteiroPreview{
+      position:absolute; left:0; top:0; width:100%; max-height:none; overflow:visible;
+      border:none; box-shadow:none; padding:0;
+    }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="kit-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+      Bônus · Guia Definitivo de UGC
+    </span>
+    <h1>Calculadora, contrato, roteiro &amp; portfólio</h1>
+    <p>Quatro ferramentas rápidas pra você cobrar o valor certo, fechar parcerias com marcas de forma profissional, gravar vídeos que convertem e mostrar seu trabalho com credibilidade.</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" role="tab" data-tab="calc" id="tabbtn-calc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M12 10h2M16 10h2M8 14h2M12 14h2M16 14h2M8 18h2M12 18h2"/></svg>
+      Calculadora de preço
+    </button>
+    <button class="tab-btn" role="tab" data-tab="contract" id="tabbtn-contract">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+      Gerador de contrato
+    </button>
+    <button class="tab-btn" role="tab" data-tab="roteiro" id="tabbtn-roteiro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6 3 3 0 0 1 5.8 1.6Z"/><path d="M15.8 22H4a2 2 0 0 1-2-2v-4c0-1.5 1-2 2-2h16a2 2 0 0 1 2 2v.3"/><path d="M15 11l-1 2M18.5 10.4l-1 2M9.5 12.2l-1 2"/></svg>
+      Gerador de roteiro
+    </button>
+    <button class="tab-btn" role="tab" data-tab="portfolio" id="tabbtn-portfolio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Modelo de portfólio
+    </button>
+  </nav>
+
+  <!-- ===================== CALCULADORA ===================== -->
+  <section class="panel active" id="panel-calc">
+    <div class="grid-calc">
+      <div>
+        <div class="card">
+          <h2>Sobre o vídeo</h2>
+          <p class="card-sub">Ajuste as opções conforme o combinado com a marca.</p>
+
+          <div class="field">
+            <label for="nivel">Sua experiência com UGC</label>
+            <select id="nivel">
+              <option value="iniciante">Iniciante · ainda não tenho portfólio</option>
+              <option value="ascensao" selected>Em ascensão · já entreguei alguns vídeos</option>
+              <option value="experiente">Experiente · tenho cases e resultados pra mostrar</option>
+            </select>
+            <p class="hint">Isso define a sua faixa de preço base por vídeo.</p>
+          </div>
+
+          <div class="field">
+            <label for="tipo">Tipo de vídeo</label>
+            <select id="tipo">
+              <option value="simples">Simples · still ou unboxing rápido</option>
+              <option value="editado" selected>Com edição · hook, cortes e texto na tela</option>
+              <option value="completo">Completo · tutorial/review com storytelling</option>
+            </select>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="duracao">Duração aproximada</label>
+              <select id="duracao">
+                <option value="curto">Até 15s</option>
+                <option value="medio" selected>15s – 45s</option>
+                <option value="longo">Mais de 45s</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="qtd">Vídeos no pacote</label>
+              <select id="qtd">
+                <option value="1" selected>1 vídeo</option>
+                <option value="3">3 vídeos</option>
+                <option value="5">5 vídeos</option>
+                <option value="10">10 ou mais</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Direitos de uso</h2>
+          <p class="card-sub">O que a marca pode fazer com o vídeo depois de pronto.</p>
+
+          <div class="field">
+            <label for="uso">Onde o vídeo será usado</label>
+            <select id="uso">
+              <option value="organico" selected>Só no perfil da marca (orgânico)</option>
+              <option value="ads30">Anúncios pagos · até 30 dias</option>
+              <option value="ads_irrestrito">Anúncios pagos · uso irrestrito / sem prazo</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="exclusividade">Exclusividade de categoria</label>
+            <select id="exclusividade">
+              <option value="nenhuma" selected>Sem exclusividade</option>
+              <option value="30">30 dias sem gravar pra concorrentes</option>
+              <option value="90">90 dias sem gravar pra concorrentes</option>
+              <option value="180">6 meses ou mais</option>
+            </select>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="revisoes">Revisões extras (além de 1)</label>
+              <select id="revisoes">
+                <option value="0" selected>Nenhuma</option>
+                <option value="1">+1 rodada</option>
+                <option value="2">+2 rodadas</option>
+                <option value="3">+3 rodadas</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="prazo">Prazo de entrega</label>
+              <select id="prazo">
+                <option value="padrao" selected>Padrão (5–7 dias)</option>
+                <option value="urgente">Urgente (até 48h)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="r-label">Faixa sugerida por vídeo</div>
+        <div class="r-range" id="rRange">R$ 0 – R$ 0</div>
+        <div class="r-sub" id="rPackageNote">valor por vídeo avulso</div>
+
+        <div class="r-ask">
+          <div style="font-size:.78rem; opacity:.9; margin-bottom:2px;">Valor total sugerido pra propor</div>
+          <b id="rAsk">R$ 0</b>
+        </div>
+
+        <ul class="breakdown" id="rBreakdown"></ul>
+
+        <div class="tip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2Z"/></svg>
+          <span>Comece a negociação perto do topo da faixa — é sempre mais fácil baixar um pouco do que pedir mais depois.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>Valores de referência com base em práticas comuns do mercado brasileiro de UGC. O preço final também depende do seu nicho, do relacionamento com a marca e da sua capacidade de negociação — use como ponto de partida, não como regra fixa.</span>
+    </div>
+  </section>
+
+  <!-- ===================== CONTRATO ===================== -->
+  <section class="panel" id="panel-contract">
+    <div class="legal-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <span><strong>Isso não é aconselhamento jurídico.</strong> Este gerador cria um modelo de referência com cláusulas comuns em contratos de UGC. Antes de assinar, principalmente em parcerias de valor mais alto, recomendamos revisão por um advogado — inclusive sobre como emitir nota fiscal (MEI/CPF).</span>
+    </div>
+
+    <div class="grid-contract">
+      <div>
+        <div class="card">
+          <fieldset>
+            <legend>Partes envolvidas</legend>
+            <div class="field">
+              <label for="cNomeCriadora">Seu nome completo</label>
+              <input type="text" id="cNomeCriadora" placeholder="Ex: Ana Beatriz Souza">
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="cCpf">CPF (opcional)</label>
+                <input type="text" id="cCpf" placeholder="000.000.000-00">
+              </div>
+              <div class="field">
+                <label for="cCidadeCriadora">Sua cidade/UF</label>
+                <input type="text" id="cCidadeCriadora" placeholder="Ex: Belo Horizonte/MG">
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="cMarca">Nome da marca/empresa</label>
+                <input type="text" id="cMarca" placeholder="Ex: Bella Cosméticos LTDA">
+              </div>
+              <div class="field">
+                <label for="cCnpj">CNPJ da empresa (opcional)</label>
+                <input type="text" id="cCnpj" placeholder="00.000.000/0000-00">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Escopo do trabalho</legend>
+            <div class="field">
+              <label for="cProduto">Produto/serviço a divulgar</label>
+              <input type="text" id="cProduto" placeholder="Ex: Kit de skincare linha Vitamina C">
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="cQtdVideos">Quantidade de vídeos</label>
+                <input type="number" id="cQtdVideos" min="1" value="1">
+              </div>
+              <div class="field">
+                <label for="cFormato">Formato/plataforma</label>
+                <input type="text" id="cFormato" placeholder="Ex: Reels vertical 9:16">
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="cPrazoEntrega">Prazo de entrega</label>
+                <input type="text" id="cPrazoEntrega" placeholder="Ex: até 7 dias após envio do produto">
+              </div>
+              <div class="field">
+                <label for="cRevisoesInc">Rodadas de revisão incluídas</label>
+                <input type="number" id="cRevisoesInc" min="0" value="1">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Direitos de uso e exclusividade</legend>
+            <div class="field">
+              <label for="cUso">Uso permitido do conteúdo</label>
+              <select id="cUso">
+                <option value="organico">Apenas no perfil da marca (orgânico)</option>
+                <option value="ads30">Anúncios pagos por até 30 dias</option>
+                <option value="ads_irrestrito">Uso irrestrito, sem prazo definido</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cExclusividade">Exclusividade de categoria</label>
+              <select id="cExclusividade">
+                <option value="nenhuma">Não há exclusividade</option>
+                <option value="30">Sim, por 30 dias</option>
+                <option value="90">Sim, por 90 dias</option>
+                <option value="180">Sim, por 6 meses</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Valor e pagamento</legend>
+            <div class="row2">
+              <div class="field">
+                <label for="cValor">Valor total (R$)</label>
+                <input type="text" id="cValor" placeholder="Ex: 450,00">
+              </div>
+              <div class="field">
+                <label for="cFormaPagamento">Forma de pagamento</label>
+                <select id="cFormaPagamento">
+                  <option value="100_entrega">100% na entrega do conteúdo</option>
+                  <option value="50_50">50% adiantado + 50% na entrega</option>
+                  <option value="outro">Outra combinação</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="cPrazoPagamento">Prazo de pagamento após entrega (dias)</label>
+              <input type="number" id="cPrazoPagamento" min="0" value="5">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Data e foro</legend>
+            <div class="row2">
+              <div class="field">
+                <label for="cForo">Cidade/foro do contrato</label>
+                <input type="text" id="cForo" placeholder="Ex: Belo Horizonte/MG">
+              </div>
+              <div class="field">
+                <label for="cData">Data</label>
+                <input type="text" id="cData" placeholder="Ex: 19 de setembro de 2026">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="doc-preview-wrap">
+        <div class="doc-toolbar">
+          <button class="btn btn-primary" id="btnCopy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar contrato
+          </button>
+          <button class="btn btn-ghost" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+            Imprimir / salvar PDF
+          </button>
+          <span class="copy-flash" id="copyFlash">Copiado!</span>
+        </div>
+        <div id="docPreview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ROTEIRO ===================== -->
+  <section class="panel" id="panel-roteiro">
+    <div class="grid-contract">
+      <div>
+        <div class="card">
+          <fieldset>
+            <legend>Sobre o produto</legend>
+            <div class="field">
+              <label for="rNomeProduto">Nome do produto</label>
+              <input type="text" id="rNomeProduto" placeholder="Ex: Sérum facial Vitamina C Glow">
+            </div>
+            <div class="field">
+              <label for="rCategoria">Categoria/nicho</label>
+              <input type="text" id="rCategoria" placeholder="Ex: skincare, moda, alimentação, pet, tech...">
+            </div>
+            <div class="field">
+              <label for="rBeneficio">Principal problema que ele resolve</label>
+              <textarea id="rBeneficio" placeholder="Ex: pele opaca e com manchas, sem tempo pra rotina de skincare complicada"></textarea>
+            </div>
+            <div class="field">
+              <label for="rDiferencial">Diferencial do produto (opcional)</label>
+              <input type="text" id="rDiferencial" placeholder="Ex: fórmula vegana, resultado em 7 dias, mais barato que a concorrência">
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="rPublico">Público-alvo (opcional)</label>
+                <input type="text" id="rPublico" placeholder="Ex: mulheres 25-40 anos">
+              </div>
+              <div class="field">
+                <label for="rTom">Tom de voz</label>
+                <select id="rTom">
+                  <option value="descontraido" selected>Descontraído e espontâneo</option>
+                  <option value="confiante">Confiante e direto</option>
+                  <option value="humor">Divertido e bem-humorado</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="rOferta">Oferta da marca (opcional)</label>
+              <input type="text" id="rOferta" placeholder="Ex: cupom UGC10, frete grátis, sem oferta específica">
+            </div>
+          </fieldset>
+
+          <button class="btn btn-primary" id="btnGerarRoteiro" style="width:100%; justify-content:center; font-size:.95rem; padding:13px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            Gerar prompt do roteiro
+          </button>
+          <p class="hint" id="roteiroStatus" style="margin-top:10px;"></p>
+        </div>
+      </div>
+
+      <div class="doc-preview-wrap">
+        <div class="doc-toolbar">
+          <button class="btn btn-primary" id="btnCopyRoteiro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar prompt
+          </button>
+          <button class="btn btn-ghost" id="btnAbrirChatGPT">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+            Abrir ChatGPT
+          </button>
+          <span class="copy-flash" id="copyFlashRoteiro">Copiado!</span>
+        </div>
+        <div id="roteiroPreview">
+          <div class="roteiro-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6 3 3 0 0 1 5.8 1.6Z"/><path d="M15.8 22H4a2 2 0 0 1-2-2v-4c0-1.5 1-2 2-2h16a2 2 0 0 1 2 2v.3"/></svg>
+            <p>Preencha os dados do produto ao lado e clique em <strong>Gerar prompt do roteiro</strong>.<br>Um prompt prontinho aparece aqui — é só copiar e colar em qualquer IA (ChatGPT, Claude, Gemini) pra receber o roteiro completo, seguindo o método de 12 etapas do guia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PORTFÓLIO ===================== -->
+  <section class="panel" id="panel-portfolio">
+    <div class="card" style="max-width:640px; margin:0 auto;">
+      <h2>Modelo de portfólio pronto</h2>
+      <p class="card-sub">Um modelo profissional no Canva pra você reunir os vídeos que já entregou e se apresentar pras marcas com credibilidade, antes mesmo da primeira conversa.</p>
+      <p style="font-size:.9rem; line-height:1.6; color:var(--ink); margin:0 0 20px;">
+        Duplique o modelo, troque pelas suas fotos, seu nome e pelos conteúdos que você já produziu (ou pelos exemplos que você criar pra treinar) e use o link como seu portfólio oficial ao se apresentar pras marcas.
+      </p>
+
+      <a class="btn btn-primary" href="https://canva.link/1iem8wp507162br" target="_blank" rel="noopener noreferrer" style="width:100%; justify-content:center; font-size:.95rem; padding:13px; text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+        Abrir modelo no Canva
+      </a>
+
+      <div class="note" style="margin-top:20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span><strong>Importante ao salvar:</strong> depois de personalizar o modelo, não baixe como PDF ou imagem. No Canva, clique em <strong>Compartilhar</strong> e escolha a opção de publicar o design <strong>como site</strong> (Canva Sites) — assim você recebe um link ao vivo do seu portfólio, que pode enviar direto pras marcas e atualizar sempre que fizer um vídeo novo, sem precisar reenviar arquivo nenhum.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="kit-footer">
+    Kit bônus do <strong>Guia Definitivo — De Iniciante a UGC</strong> · use, edite e adapte à vontade para as suas parcerias.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- tabs ---------- */
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  var panels = { calc: document.getElementById("panel-calc"), contract: document.getElementById("panel-contract"), roteiro: document.getElementById("panel-roteiro"), portfolio: document.getElementById("panel-portfolio") };
+  tabBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabBtns.forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      Object.keys(panels).forEach(function(k){ panels[k].classList.toggle("active", k === btn.dataset.tab); });
+      try{ localStorage.setItem("ugcKitTab", btn.dataset.tab); }catch(e){}
+    });
+  });
+  try{
+    var savedTab = localStorage.getItem("ugcKitTab");
+    if(savedTab && panels[savedTab]){
+      tabBtns.forEach(function(b){ b.classList.toggle("active", b.dataset.tab === savedTab); });
+      Object.keys(panels).forEach(function(k){ panels[k].classList.toggle("active", k === savedTab); });
+    }
+  }catch(e){}
+
+  /* ---------- calculadora ---------- */
+  var NIVEL = {
+    iniciante:  { min:100, max:180, label:"Iniciante" },
+    ascensao:   { min:180, max:320, label:"Em ascensão" },
+    experiente: { min:320, max:500, label:"Experiente" }
+  };
+  var TIPO = { simples:1.0, editado:1.2, completo:1.5 };
+  var TIPO_LABEL = { simples:"Vídeo simples", editado:"Vídeo com edição", completo:"Tutorial/review completo" };
+  var DURACAO = { curto:1.0, medio:1.15, longo:1.3 };
+  var DURACAO_LABEL = { curto:"Até 15s", medio:"15s–45s", longo:"Mais de 45s" };
+  var USO = { organico:1.0, ads30:1.5, ads_irrestrito:2.0 };
+  var USO_LABEL = { organico:"Uso orgânico", ads30:"Ads pagos até 30 dias", ads_irrestrito:"Ads pagos irrestrito" };
+  var EXCL = { nenhuma:1.0, "30":1.15, "90":1.3, "180":1.5 };
+  var EXCL_LABEL = { nenhuma:"Sem exclusividade", "30":"Exclusividade 30 dias", "90":"Exclusividade 90 dias", "180":"Exclusividade 6 meses+" };
+  var VOLUME_DESC = { "1":0, "3":0.10, "5":0.15, "10":0.20 };
+
+  function brl(n){
+    return "R$ " + n.toLocaleString("pt-BR", { minimumFractionDigits:0, maximumFractionDigits:0 });
+  }
+
+  function calcPrice(){
+    var nivel = document.getElementById("nivel").value;
+    var tipo = document.getElementById("tipo").value;
+    var duracao = document.getElementById("duracao").value;
+    var uso = document.getElementById("uso").value;
+    var excl = document.getElementById("exclusividade").value;
+    var revisoes = parseInt(document.getElementById("revisoes").value, 10);
+    var prazo = document.getElementById("prazo").value;
+    var qtd = document.getElementById("qtd").value;
+
+    var base = NIVEL[nivel];
+    var mult = TIPO[tipo] * DURACAO[duracao] * USO[uso] * EXCL[excl];
+    if(prazo === "urgente") mult *= 1.25;
+
+    var perVideoMin = base.min * mult + revisoes * 30;
+    var perVideoMax = base.max * mult + revisoes * 30;
+
+    var n = parseInt(qtd, 10);
+    var totalMin = perVideoMin * n;
+    var totalMax = perVideoMax * n;
+    var desc = VOLUME_DESC[qtd] || 0;
+    totalMin *= (1 - desc);
+    totalMax *= (1 - desc);
+
+    var roundTo = function(v){ return Math.round(v / 5) * 5; };
+    perVideoMin = roundTo(perVideoMin); perVideoMax = roundTo(perVideoMax);
+    totalMin = roundTo(totalMin); totalMax = roundTo(totalMax);
+
+    var askValue = roundTo((totalMin + totalMax) / 2 * 1.05);
+
+    document.getElementById("rRange").textContent = brl(perVideoMin) + " – " + brl(perVideoMax);
+    document.getElementById("rPackageNote").textContent = n > 1
+      ? "por vídeo · pacote de " + n + " vídeos com " + Math.round(desc*100) + "% de desconto no total"
+      : "valor por vídeo avulso";
+    document.getElementById("rAsk").textContent = n > 1
+      ? brl(totalMin) + " – " + brl(totalMax) + " (pacote completo)"
+      : brl(askValue);
+
+    var rows = [
+      ["Nível: " + base.label, brl(base.min) + "–" + brl(base.max)],
+      [TIPO_LABEL[tipo], "×" + TIPO[tipo].toFixed(2)],
+      [DURACAO_LABEL[duracao], "×" + DURACAO[duracao].toFixed(2)],
+      [USO_LABEL[uso], "×" + USO[uso].toFixed(2)],
+      [EXCL_LABEL[excl], "×" + EXCL[excl].toFixed(2)]
+    ];
+    if(prazo === "urgente") rows.push(["Entrega urgente (48h)", "×1.25"]);
+    if(revisoes > 0) rows.push([revisoes + " revisão(ões) extra", "+" + brl(revisoes*30)]);
+    if(desc > 0) rows.push(["Desconto de volume (" + n + " vídeos)", "-" + Math.round(desc*100) + "%"]);
+
+    var ul = document.getElementById("rBreakdown");
+    ul.innerHTML = "";
+    rows.forEach(function(r){
+      var li = document.createElement("li");
+      li.innerHTML = "<span>" + r[0] + "</span><span>" + r[1] + "</span>";
+      ul.appendChild(li);
+    });
+  }
+
+  ["nivel","tipo","duracao","uso","exclusividade","revisoes","prazo","qtd"].forEach(function(id){
+    document.getElementById(id).addEventListener("change", calcPrice);
+  });
+  calcPrice();
+
+  /* ---------- gerador de contrato ---------- */
+  var USO_TEXT = {
+    organico: "exclusivamente no perfil oficial da CONTRATANTE em redes sociais, em formato orgânico (não impulsionado)",
+    ads30: "no perfil da CONTRATANTE e em anúncios pagos (impulsionamento/whitelisting) pelo prazo de até 30 (trinta) dias corridos a partir da data de publicação",
+    ads_irrestrito: "no perfil da CONTRATANTE e em anúncios pagos (impulsionamento/whitelisting), sem limitação de prazo"
+  };
+  var FORMA_PAG_TEXT = {
+    "100_entrega": "100% (cem por cento) do valor após a aprovação final e entrega do conteúdo",
+    "50_50": "50% (cinquenta por cento) adiantado, na assinatura deste contrato, e os 50% (cinquenta por cento) restantes após a entrega e aprovação final do conteúdo",
+    "outro": "conforme combinado entre as partes por escrito"
+  };
+
+  var contractFieldIds = ["cNomeCriadora","cCpf","cCidadeCriadora","cMarca","cCnpj","cProduto","cQtdVideos",
+    "cFormato","cPrazoEntrega","cRevisoesInc","cUso","cExclusividade","cValor","cFormaPagamento",
+    "cPrazoPagamento","cForo","cData"];
+
+  function val(id){ var el = document.getElementById(id); return el.value.trim(); }
+  function or(v, fallback){ return v ? v : fallback; }
+
+  function buildContract(){
+    var nome = or(val("cNomeCriadora"), "[SEU NOME COMPLETO]");
+    var cpf = val("cCpf");
+    var cidadeCriadora = or(val("cCidadeCriadora"), "[SUA CIDADE/UF]");
+    var marca = or(val("cMarca"), "[NOME DA MARCA]");
+    var cnpj = val("cCnpj");
+    var produto = or(val("cProduto"), "[PRODUTO/SERVIÇO]");
+    var qtdVideos = or(val("cQtdVideos"), "1");
+    var formato = or(val("cFormato"), "[FORMATO/PLATAFORMA]");
+    var prazoEntrega = or(val("cPrazoEntrega"), "[PRAZO DE ENTREGA]");
+    var revisoesInc = or(val("cRevisoesInc"), "1");
+    var uso = document.getElementById("cUso").value;
+    var exclusividade = document.getElementById("cExclusividade").value;
+    var valor = or(val("cValor"), "[VALOR]");
+    var formaPagId = document.getElementById("cFormaPagamento").value;
+    var prazoPagamento = or(val("cPrazoPagamento"), "5");
+    var foro = or(val("cForo"), "[CIDADE/UF]");
+    var data = or(val("cData"), "[DATA]");
+
+    var exclClause = "";
+    if(exclusividade !== "nenhuma"){
+      var dias = { "30":"30 (trinta) dias", "90":"90 (noventa) dias", "180":"180 (cento e oitenta) dias" }[exclusividade];
+      exclClause = "\n\n5. DA EXCLUSIVIDADE\nDurante o período de " + dias + ", contados a partir da data de entrega final do conteúdo, a CONTRATADA compromete-se a não produzir conteúdo pago para marcas concorrentes diretas da CONTRATANTE no mesmo segmento de " + produto + ".";
+    }
+
+    var html = ""
+      + "<h3>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE CRIAÇÃO DE CONTEÚDO (UGC)</h3>"
+      + "<p><strong>1. DAS PARTES</strong><br>"
+      + "De um lado, <strong>" + nome + "</strong>" + (cpf ? ", inscrita(o) no CPF sob o nº " + cpf : "") + ", residente em " + cidadeCriadora + ", doravante denominada(o) simplesmente <strong>CONTRATADA</strong>;<br><br>"
+      + "De outro lado, <strong>" + marca + "</strong>" + (cnpj ? ", inscrita no CNPJ sob o nº " + cnpj : "") + ", doravante denominada simplesmente <strong>CONTRATANTE</strong>;<br><br>"
+      + "As partes acima identificadas têm, entre si, justo e acertado o presente Contrato de Prestação de Serviços de Criação de Conteúdo (UGC), que se regerá pelas cláusulas seguintes.</p>"
+
+      + "<p><strong>2. DO OBJETO</strong><br>"
+      + "O presente contrato tem como objeto a produção, pela CONTRATADA, de " + qtdVideos + " vídeo(s) no formato " + formato + ", com o propósito de divulgar o produto/serviço \"" + produto + "\" da CONTRATANTE.</p>"
+
+      + "<p><strong>3. DO PRAZO DE ENTREGA E REVISÕES</strong><br>"
+      + "A CONTRATADA se compromete a entregar o conteúdo em " + prazoEntrega + ". Está incluída(s) " + revisoesInc + " rodada(s) de revisão sem custo adicional. Alterações solicitadas além do combinado poderão ser cobradas à parte, mediante acordo prévio entre as partes.</p>"
+
+      + "<p><strong>4. DOS DIREITOS DE USO E IMAGEM</strong><br>"
+      + "A CONTRATADA autoriza a CONTRATANTE a utilizar o conteúdo produzido " + USO_TEXT[uso] + ". Qualquer uso fora do escopo aqui descrito (incluindo veiculação em outras mídias, período superior ao acordado, ou edição do material sem autorização) deverá ser previamente negociado e remunerado à parte.</p>"
+      + exclClause
+
+      + "<p><strong>" + (exclusividade !== "nenhuma" ? "6" : "5") + ". DO VALOR E FORMA DE PAGAMENTO</strong><br>"
+      + "Pela prestação dos serviços descritos neste contrato, a CONTRATANTE pagará à CONTRATADA o valor total de R$ " + valor + ", a ser pago da seguinte forma: " + FORMA_PAG_TEXT[formaPagId] + ", em até " + prazoPagamento + " dia(s) após a respectiva etapa.</p>"
+
+      + "<p><strong>" + (exclusividade !== "nenhuma" ? "7" : "6") + ". DA PROPRIEDADE INTELECTUAL</strong><br>"
+      + "A CONTRATADA mantém a autoria do conteúdo produzido, cedendo à CONTRATANTE apenas os direitos de uso especificados na Cláusula 4, e não a titularidade da obra.</p>"
+
+      + "<p><strong>" + (exclusividade !== "nenhuma" ? "8" : "7") + ". DA RESCISÃO</strong><br>"
+      + "O presente contrato poderá ser rescindido por qualquer das partes, mediante aviso prévio por escrito com antecedência mínima de 5 (cinco) dias, ficando assegurado à CONTRATADA o pagamento proporcional pelos serviços já executados até a data da rescisão.</p>"
+
+      + "<p><strong>" + (exclusividade !== "nenhuma" ? "9" : "8") + ". DA CONFIDENCIALIDADE</strong><br>"
+      + "As partes se comprometem a manter sigilo sobre informações comerciais e estratégicas trocadas durante a vigência deste contrato, inclusive após seu término.</p>"
+
+      + "<p><strong>" + (exclusividade !== "nenhuma" ? "10" : "9") + ". DO FORO</strong><br>"
+      + "Fica eleito o foro da comarca de " + foro + " para dirimir quaisquer dúvidas ou litígios oriundos deste contrato, com renúncia a qualquer outro, por mais privilegiado que seja.</p>"
+
+      + "<p>E por estarem assim justas e contratadas, as partes assinam o presente instrumento em duas vias de igual teor.</p>"
+
+      + "<p>" + foro + ", " + data + ".</p>"
+
+      + "<p style='margin-top:28px;'>"
+      + "____________________________________________<br>"
+      + "<span class='signature'>" + nome + "</span><br>CONTRATADA<br><br>"
+      + "____________________________________________<br>"
+      + "<span class='signature'>" + marca + "</span><br>CONTRATANTE"
+      + "</p>";
+
+    document.getElementById("docPreview").innerHTML = html;
+  }
+
+  contractFieldIds.forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener("input", buildContract);
+    el.addEventListener("change", buildContract);
+  });
+
+  /* restore + persist creator's own info for convenience */
+  var persistIds = ["cNomeCriadora","cCpf","cCidadeCriadora"];
+  try{
+    persistIds.forEach(function(id){
+      var v = localStorage.getItem("ugcKit_" + id);
+      if(v) document.getElementById(id).value = v;
+    });
+  }catch(e){}
+  persistIds.forEach(function(id){
+    document.getElementById(id).addEventListener("change", function(){
+      try{ localStorage.setItem("ugcKit_" + id, document.getElementById(id).value); }catch(e){}
+    });
+  });
+
+  buildContract();
+
+  document.getElementById("btnCopy").addEventListener("click", function(){
+    var text = document.getElementById("docPreview").innerText;
+    var flash = document.getElementById("copyFlash");
+    function showFlash(){ flash.classList.add("show"); setTimeout(function(){ flash.classList.remove("show"); }, 1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showFlash).catch(function(){
+        try{
+          var ta = document.createElement("textarea");
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); document.body.removeChild(ta);
+          showFlash();
+        }catch(e){}
+      });
+    }
+  });
+
+  document.getElementById("btnPrint").addEventListener("click", function(){
+    window.print();
+  });
+
+  /* ---------- gerador de prompt de roteiro ---------- */
+  var STAGES = [
+    { key:"gancho", nome:"Gancho", guia:"um começo chocante, impactante ou inesperado nos primeiros segundos, que gere curiosidade e faça a pessoa parar de rolar o feed." },
+    { key:"problema", nome:"Problema", guia:"a dificuldade comum vivida por quem tem esse problema, relacionada ao nicho do produto, gerando identificação imediata com quem assiste." },
+    { key:"solucao_falha", nome:"Solução falha", guia:"o que as pessoas costumam tentar antes de conhecer esse produto e que não funciona direito." },
+    { key:"apresentacao", nome:"Apresentação do produto", guia:"o momento em que a criadora conta como conheceu o produto (pode ser genérico, tipo \"foi aí que encontrei...\")." },
+    { key:"beneficios", nome:"Benefícios do produto", guia:"os diferenciais mais fortes, posicionando o produto como a melhor solução possível pro problema (menor preço, mais fácil de usar, maior qualidade — o que fizer mais sentido pro produto)." },
+    { key:"caracteristicas", nome:"Características do produto", guia:"detalhes práticos do produto (é prático? compacto? responde dúvidas comuns de quem for comprar)." },
+    { key:"resultado", nome:"Resultado alcançado", guia:"a sensação ou transformação que o produto proporcionou, falado de forma pessoal e genuína." },
+    { key:"educacao", nome:"Educação", guia:"como o produto resolve o problema e como foi o processo até chegar no resultado final." },
+    { key:"demonstracao", nome:"Demonstração", guia:"como usar o produto na prática, passo a passo simples." },
+    { key:"confianca", nome:"Confiança", guia:"por que confiar no produto — prova social genuína (recomendação pessoal, resultado visto, etc.)." },
+    { key:"oferta", nome:"Oferta", guia:"uma oferta que gere mais desejo (preço, desconto, frete grátis) SE fizer sentido pros dados informados; se não houver oferta clara, oriente a criadora a perguntar a marca ou fale de forma genérica sobre onde encontrar o produto." },
+    { key:"cta", nome:"CTA / chamada para ação", guia:"o convite final adequado ao objetivo (visitar o site, comprar, seguir o perfil, usar o cupom)." }
+  ];
+
+  var lastRoteiroPrompt = "";
+
+  function buildRoteiroPrompt(data){
+    var estrutura = STAGES.map(function(s, i){
+      return (i+1) + ". " + s.nome + " — " + s.guia;
+    }).join("\n");
+
+    return "Você é uma redatora especialista em roteiros de vídeo UGC (User Generated Content) pra marcas, seguindo uma estrutura pedagógica de 12 etapas usada num guia de UGC para criadoras iniciantes.\n\n"
+      + "Escreva um roteiro completo de UGC pro produto abaixo, seguindo EXATAMENTE esta estrutura de 12 etapas, nesta ordem:\n\n" + estrutura + "\n\n"
+      + "Dados do produto/marca:\n"
+      + "- Produto: " + data.produto + "\n"
+      + "- Categoria/nicho: " + (data.categoria || "não informado") + "\n"
+      + "- Problema que resolve: " + data.beneficio + "\n"
+      + "- Diferencial: " + (data.diferencial || "não informado") + "\n"
+      + "- Público-alvo: " + (data.publico || "não informado") + "\n"
+      + "- Tom de voz desejado: " + data.tom + "\n"
+      + "- Oferta da marca: " + (data.oferta || "não informada") + "\n\n"
+      + "Escreva em português do Brasil, com um tom autêntico e caseiro — nunca comercial ou robótico demais, como se fosse uma amiga contando pra outra sobre o produto.\n\n"
+      + "Para CADA uma das 12 etapas, responda neste formato exato:\n\n"
+      + "Etapa X — [nome da etapa]\n"
+      + "Fala: [o texto que a criadora vai gravar falando pra câmera, 1 a 3 frases curtas]\n"
+      + "Cena: [uma direção de gravação curta e prática, tipo \"filme se olhando no espelho segurando o produto\"]\n\n"
+      + "Não adicione introdução, conclusão ou qualquer texto fora dessas 12 etapas.";
+  }
+
+  function setRoteiroStatus(msg){
+    document.getElementById("roteiroStatus").textContent = msg || "";
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function renderRoteiroPromptResult(promptText){
+    lastRoteiroPrompt = promptText;
+    var wrap = document.getElementById("roteiroPreview");
+    wrap.innerHTML = ""
+      + '<div class="roteiro-prompt-header">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2Z"/></svg>'
+      + '<span><strong>Prompt pronto!</strong> Copie e cole em qualquer IA de texto (ChatGPT, Claude, Gemini...) pra receber o roteiro completo, já estruturado nas 12 etapas do método.</span>'
+      + '</div>'
+      + '<div class="roteiro-prompt-box">' + escapeHtml(promptText) + '</div>';
+  }
+
+  document.getElementById("btnGerarRoteiro").addEventListener("click", function(){
+    var produto = document.getElementById("rNomeProduto").value.trim();
+    var beneficio = document.getElementById("rBeneficio").value.trim();
+    if(!produto || !beneficio){
+      setRoteiroStatus("Preencha pelo menos o nome do produto e o problema que ele resolve.");
+      return;
+    }
+    setRoteiroStatus("");
+
+    var data = {
+      produto: produto,
+      categoria: document.getElementById("rCategoria").value.trim(),
+      beneficio: beneficio,
+      diferencial: document.getElementById("rDiferencial").value.trim(),
+      publico: document.getElementById("rPublico").value.trim(),
+      tom: document.getElementById("rTom").options[document.getElementById("rTom").selectedIndex].text,
+      oferta: document.getElementById("rOferta").value.trim()
+    };
+
+    renderRoteiroPromptResult(buildRoteiroPrompt(data));
+  });
+
+  document.getElementById("btnCopyRoteiro").addEventListener("click", function(){
+    var text = lastRoteiroPrompt || document.getElementById("roteiroPreview").innerText;
+    var flash = document.getElementById("copyFlashRoteiro");
+    function showFlash(){ flash.classList.add("show"); setTimeout(function(){ flash.classList.remove("show"); }, 1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showFlash).catch(function(){
+        try{
+          var ta = document.createElement("textarea");
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); document.body.removeChild(ta);
+          showFlash();
+        }catch(e){}
+      });
+    }
+  });
+
+  document.getElementById("btnAbrirChatGPT").addEventListener("click", function(){
+    window.open("https://chat.openai.com/", "_blank", "noopener,noreferrer");
+  });
+
+})();
+</script>
+
+</body>
+</html>
